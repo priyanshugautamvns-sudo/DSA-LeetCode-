@@ -12,7 +12,7 @@ public:
         {
             dp[m-1][n-2]=cal(m,n-1,dp);
         }
-        return dp[m-2][n-1]+dp[m-1][n-2];
+        return dp[m-1][n-1]=dp[m-2][n-1]+dp[m-1][n-2];
     }
     int uniquePaths(int m, int n) {
         vector<vector<int>>dp(m,vector<int>(n,-1));
