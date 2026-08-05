@@ -2,7 +2,7 @@ class Solution {
 public:
     int cal(vector<vector<int>>& triangle,int r,int c,int m,int n,vector<vector<int>>&dp)
     {
-        if(dp[r][c]!=1000000000)
+        if(dp[r][c]!=-2)
         {
             return dp[r][c];
         }
@@ -16,7 +16,7 @@ public:
         
         int m=triangle.size();
         int n=triangle[m-1].size();
-        vector<vector<int>>dp(m,vector<int>(n,1000000000));
+        vector<vector<int>>dp(m,vector<int>(n,-2));
         return cal(triangle,0,0,m,n,dp);
     }
 };
