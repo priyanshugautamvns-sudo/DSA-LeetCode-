@@ -3,7 +3,7 @@ public:
     int maximumLengthSubstring(string s) {
         int i=0;
         int j=0;
-        map<char,int>mp;
+        unordered_map<char,int>mp;
         int ms=0;
         while(j<s.size())
         {
