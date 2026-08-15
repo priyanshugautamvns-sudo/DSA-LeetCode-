@@ -1,12 +1,12 @@
 class Solution {
 public:
 
-    void generate(vector<int>& nums,
-                  int i,
-                  int end,
-                  int sum,
-                  int cnt,
-                  vector<vector<int>>& dp)
+    void dpp(vector<int>& nums,
+             int i,
+             int end,
+             int sum,
+             int cnt,
+             vector<vector<int>>& dp)
     {
         if(i == end)
         {
@@ -15,17 +15,16 @@ public:
         }
 
         // Don't take
-        generate(nums, i + 1, end, sum, cnt, dp);
+        dpp(nums, i + 1, end, sum, cnt, dp);
 
         // Take
-        generate(nums, i + 1, end,
-                 sum + nums[i], cnt + 1, dp);
+        dpp(nums, i + 1, end,
+            sum + nums[i], cnt + 1, dp);
     }
 
-    int minimumDifference(vector<int>& nums)
-    {
-        int n = nums.size();
+    int minimumDifference(vector<int>& nums) {
 
+        int n = nums.size();
         int total = 0;
 
         for(int x : nums)
@@ -34,38 +33,34 @@ public:
         int mid = n / 2;
 
         vector<vector<int>> left(mid + 1);
-        vector<vector<int>> right(n - mid + 1);
+        vector<vector<int>> right(mid + 1);
 
         // Generate all subset sums
-        generate(nums, 0, mid, 0, 0, left);
+        dpp(nums, 0, mid, 0, 0, left);
+        dpp(nums, mid, n, 0, 0, right);
 
-        generate(nums, mid, n, 0, 0, right);
-
-        // Sort right sums for binary search
-        for(int i = 0; i < right.size(); i++)
+        // Sort right side
+        for(int i = 0; i <= mid; i++)
         {
             sort(right[i].begin(), right[i].end());
         }
 
         int ans = INT_MAX;
 
-        // Choose k elements from left
+        // k elements from left
         for(int k = 0; k <= mid; k++)
         {
-            // Need mid-k elements from right
+            // Remaining elements from right
             int need = mid - k;
 
-            for(int L : left[k])
+            for(int leftSum : left[k])
             {
                 // We want:
                 //
-                // L + R ≈ total/2
-                //
-                // Therefore:
-                //
-                // R ≈ total/2 - L
+                // leftSum + rightSum ≈ total / 2
 
-                double target = (double)total / 2.0 - L;
+                double target =
+                    (double)total / 2.0 - leftSum;
 
                 auto it = lower_bound(
                     right[need].begin(),
@@ -73,31 +68,33 @@ public:
                     target
                 );
 
-                // Candidate 1
+                // Candidate >= target
                 if(it != right[need].end())
                 {
-                    int R = *it;
+                    int rightSum = *it;
 
-                    int sum = L + R;
+                    int currentSum =
+                        leftSum + rightSum;
 
                     ans = min(
                         ans,
-                        abs(total - 2 * sum)
+                        abs(total - 2 * currentSum)
                     );
                 }
 
-                // Candidate 2: previous element
+                // Candidate < target
                 if(it != right[need].begin())
                 {
                     --it;
 
-                    int R = *it;
+                    int rightSum = *it;
 
-                    int sum = L + R;
+                    int currentSum =
+                        leftSum + rightSum;
 
                     ans = min(
                         ans,
-                        abs(total - 2 * sum)
+                        abs(total - 2 * currentSum)
                     );
                 }
             }
