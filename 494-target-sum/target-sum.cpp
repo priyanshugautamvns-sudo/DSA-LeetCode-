@@ -10,10 +10,10 @@ public:
             }
             else return 1;
         }
-        // if(target==0 && i==nums.size()-1)
-        // {
-        //     return 1;
-        // }
+        if(target==0 && i==nums.size())
+        {
+            return 1;
+        }
         if(target < -n || target > n)
         {
             return 0;
