@@ -4,7 +4,7 @@ public:
         unordered_map<int,int>mp;
         for(int i=0,j=i+k-1;j<nums.size();i++,j++)
         {
-            set<int>st;
+            unordered_set<int>st;
             for(int l=i;l<=j;l++)
             {
                 if(st.count(nums[l])==0)
