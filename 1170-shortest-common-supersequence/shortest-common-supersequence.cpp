@@ -5,12 +5,12 @@ public:
     {
         if(i == str1.size())
         {
-            return str2.size() - j;
+            return dp[i][j] =str2.size() - j;
         }
 
         if(j == str2.size())
         {
-            return str1.size() - i;
+            return dp[i][j] =str1.size() - i;
         }
 
         if(dp[i][j] != -1)
@@ -36,7 +36,7 @@ public:
         int n = str1.size();
         int m = str2.size();
 
-        vector<vector<int>> dp(n, vector<int>(m, -1));
+        vector<vector<int>> dp(n+1, vector<int>(m+1, -1));
 
         // Fill memoization table
         dpp(str1, str2, 0, 0, dp);
@@ -57,8 +57,8 @@ public:
             }
             else
             {
-                int deleteFromStr1 = dpp(str1, str2, i+1, j, dp);
-                int deleteFromStr2 = dpp(str1, str2, i, j+1, dp);
+                int deleteFromStr1 = dp[i+1][j];
+                int deleteFromStr2 = dp[i][j+1];
 
                 if(deleteFromStr1 < deleteFromStr2)
                 {
