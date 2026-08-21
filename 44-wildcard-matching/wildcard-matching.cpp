@@ -1,42 +1,52 @@
 class Solution {
 public:
-    bool dpp(string&s, string&p,int i,int j,vector<vector<int>>&dp)
+
+    bool dpp(string& s, string& p, int i, int j,
+             vector<vector<int>>& dp,
+             vector<bool>& onlyStar)
     {
-        if(i==s.size() && j==p.size()) return true;
+        if(i == s.size())
+            return onlyStar[j];
+
         if(j == p.size())
             return false;
 
-        // String finished
-        if(i == s.size())
+        if(dp[i][j] != -1)
+            return dp[i][j];
+
+        if(s[i] == p[j] || p[j] == '?')
         {
-            // Remaining pattern should contain only '*'
-            for(int k = j; k < p.size(); k++)
-            {
-                if(p[k] != '*')
-                    return false;
-            }
-            return true;
+            return dp[i][j] =
+                dpp(s, p, i + 1, j + 1, dp, onlyStar);
         }
-        if(dp[i][j]!=-1) return dp[i][j];
-        bool c1=false;
-        bool c2=false;
-        bool c3=false;
-        if(s[i]==p[j] || p[j]=='?')
+
+        if(p[j] == '*')
         {
-            c1=dpp(s,p,i+1,j+1,dp);
+            return dp[i][j] =
+                dpp(s, p, i + 1, j, dp, onlyStar) ||
+                dpp(s, p, i, j + 1, dp, onlyStar);
         }
-        else if(p[j]=='*')
-        {
-            c2=dpp(s,p,i+1,j,dp)||dpp(s,p,i,j+1,dp);
-        }
-        else
-        {
-            c3=false;
-        }
-        return dp[i][j]=c1||c2||c3;
+
+        return dp[i][j] = false;
     }
-    bool isMatch(string s, string p) {
-        vector<vector<int>>dp(s.size(),vector<int>(p.size(),-1));
-        return dpp(s,p,0,0,dp);
+
+    bool isMatch(string s, string p)
+    {
+        int n = s.size();
+        int m = p.size();
+
+        vector<vector<int>> dp(
+            n,
+            vector<int>(m, -1)
+        );
+
+        vector<bool> onlyStar(m + 1, true);
+
+        for(int j = m - 1; j >= 0; j--)
+        {
+            onlyStar[j] = onlyStar[j + 1] && (p[j] == '*');
+        }
+
+        return dpp(s, p, 0, 0, dp, onlyStar);
     }
 };
