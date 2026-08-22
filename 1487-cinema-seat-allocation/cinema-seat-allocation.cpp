@@ -19,16 +19,11 @@ public:
                 // Previous cross is not in same row as current cross
 
                 skipRows = rseats[i][0] - rseats[i-1][0];
-
-                // Case-A
-                // Add 2 count for each empty row
                 count += 2 * (skipRows - 1);
 
-                // Case-F
                 if(rseats[i-1][1] == 1)
                     count += 2;
 
-                // Case-G
                 else if(rseats[i-1][1] < 6)
                     count += 1;
 
