@@ -16,15 +16,10 @@ public:
                 arr2.push_back(nums[i]);
             }
         }
-        vector<int>res;
-        for(int j=0;j<arr1.size();j++)
-        {
-            res.push_back(arr1[j]);
-        }
         for(int j=0;j<arr2.size();j++)
         {
-            res.push_back(arr2[j]);
+            arr1.push_back(arr2[j]);
         }
-        return res;
+        return arr1;
     }
 };
