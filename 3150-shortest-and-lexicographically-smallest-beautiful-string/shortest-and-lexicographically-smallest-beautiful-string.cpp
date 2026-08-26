@@ -28,13 +28,8 @@ public:
             }
             else
             {
-                // while(sum>=k)
-                // {
-                    sum-=(s[i]-'0');
-                    i++;
-                // }
-                // i--;
-                // sum+=s[i]-'0';
+                sum-=(s[i]-'0');
+                i++;
             }
         }
         if(pq.empty()) return "";
