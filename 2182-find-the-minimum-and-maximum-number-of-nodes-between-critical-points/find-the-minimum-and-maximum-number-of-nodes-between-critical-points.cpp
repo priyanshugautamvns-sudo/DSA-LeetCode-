@@ -16,7 +16,6 @@ public:
         ListNode*curr=prev->next;
         if(curr->next==NULL) return {-1,-1};
         ListNode*nex=curr->next;
-        vector<int>ans;
         vector<int>cal;
         int cnt=1;
         int min_dis=INT_MAX;
@@ -37,8 +36,6 @@ public:
         }
         if(cal.size()<2) return {-1,-1};
         int max_dis=cal[cal.size()-1]-cal[0];
-        ans.push_back(min_dis);
-        ans.push_back(max_dis);
-        return ans;
+        return {min_dis,max_dis};
     }
 };
