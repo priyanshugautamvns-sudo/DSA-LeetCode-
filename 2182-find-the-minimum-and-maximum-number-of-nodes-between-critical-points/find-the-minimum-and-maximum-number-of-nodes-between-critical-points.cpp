@@ -19,11 +19,16 @@ public:
         vector<int>ans;
         vector<int>cal;
         int cnt=1;
+        int min_dis=INT_MAX;
         while(nex!=NULL)
         {
             if((curr->val>nex->val && curr->val>prev->val) || (curr->val<nex->val && curr->val<prev->val))
             {
                 cal.push_back(cnt);
+            }
+            if(cal.size()>1)
+            {
+                min_dis=min(min_dis,cal[cal.size()-1]-cal[cal.size()-2]);
             }
             prev=curr;
             curr=nex;
@@ -32,11 +37,6 @@ public:
         }
         if(cal.size()<2) return {-1,-1};
         int max_dis=cal[cal.size()-1]-cal[0];
-        int min_dis=INT_MAX;
-        for(int i=1;i<cal.size();i++)
-        {
-            min_dis=min(min_dis,cal[i]-cal[i-1]);
-        }
         ans.push_back(min_dis);
         ans.push_back(max_dis);
         return ans;
