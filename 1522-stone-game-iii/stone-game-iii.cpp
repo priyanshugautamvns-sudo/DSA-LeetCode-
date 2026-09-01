@@ -29,13 +29,13 @@ public:
             int sum=stoneValue[i];
             int c1=sum-dp[0];
             int c2=INT_MIN;
-            if(dp[1]!=INT_MAX && i+1<n)
+            if(i+1<n)
             {
                 sum+=stoneValue[i+1];
                 c2=sum-dp[1];
             }
             int c3=INT_MIN;
-            if(dp[2]!=INT_MAX && i+2<n)
+            if(i+2<n)
             {
                 sum+=stoneValue[i+2];
                 c3=sum-dp[2];
