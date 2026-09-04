@@ -15,18 +15,20 @@ public:
     int minimumTotal(vector<vector<int>>& triangle) {
         int m=triangle.size();
         int n=triangle[m-1].size();
-        vector<vector<int>>dp(m,vector<int>(n,-2));
+        vector<int>prev(n,-2);
         for(int i=m-1;i>=0;i--)
         {
+            vector<int>temp(n,-2);
             for(int j=i;j>=0;j--)
             {
                 if(i==m-1)
                 {
-                    dp[i][j]=triangle[i][j];
+                    temp[j]=triangle[i][j];
                 }
-                else{dp[i][j]=triangle[i][j]+min(dp[i+1][j],dp[i+1][j+1]);}
+                else{temp[j]=triangle[i][j]+min(prev[j],prev[j+1]);}
             }
+            prev=temp;
         }
-        return dp[0][0];
+        return prev[0];
     }
 };
