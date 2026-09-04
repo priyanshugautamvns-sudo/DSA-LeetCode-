@@ -32,23 +32,25 @@ public:
         int n=obstacleGrid.size();
         int m=obstacleGrid[0].size();
 
-        vector<vector<long long>>dp(n,vector<long long>(m,0));
+        vector<long long>prev(m,0);
         if(obstacleGrid[n-1][m-1]==1 || obstacleGrid[0][0]==1)return 0;
         // return cal(obstacleGrid,r,c,dp,n,m);
        
         for(int i=n-1;i>=0;i--){
+            vector<long long>curr(m,0);
             for(int j=m-1;j>=0;j--){
-                if(i==n-1&&j==m-1) dp[i][j]=1;
+                if(i==n-1&&j==m-1) curr[j]=1;
                 else {
                      long long c1=0,c2=0;
-                if(i+1<n&&j<m&&obstacleGrid[i+1][j]==0) c1=dp[i+1][j];
-               if(i<n&&j+1<m&&obstacleGrid[i][j+1]==0) c2=dp[i][j+1];
-               dp[i][j]=c1+c2;
+                if(i+1<n&&j<m&&obstacleGrid[i+1][j]==0) c1=prev[j];
+               if(i<n&&j+1<m&&obstacleGrid[i][j+1]==0) c2=curr[j+1];
+               curr[j]=c1+c2;
                }
                 
 
             }
+            prev=curr;
         }
-        return dp[0][0];
+        return prev[0];
     }
 };
