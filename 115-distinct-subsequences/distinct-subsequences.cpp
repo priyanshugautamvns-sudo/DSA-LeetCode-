@@ -22,11 +22,10 @@ public:
             {
                 if(s[i]==t[j])
                 {
-                    if(next[j+1] > INT_MAX - next[j])
+                    if(next[j+1]+next[j] > INT_MAX )
                         curr[j] = INT_MAX;
                     else
-                        curr[j] = next[j+1] + next[j];
-
+                        curr[j] = next[j+1] + next[j];  
                 }
                 else curr[j]=next[j]; 
             }
