@@ -14,7 +14,7 @@ public:
             dpp(n-1,cnt+1,s);
             s.pop_back();
         }
-        if(cnt>0)
+        if(n>0 && cnt>0)
         {
             s.push_back(')');
             dpp(n-1,cnt-1,s);
