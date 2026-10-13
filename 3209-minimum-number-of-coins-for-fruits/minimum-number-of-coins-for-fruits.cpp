@@ -14,7 +14,7 @@ public:
     // }
     int minimumCoins(vector<int>& prices) {
         int n=prices.size();
-        vector<int>dp(2*(n+2),0);
+        vector<int>dp(2*(n+1),0);
         for(int i=n-1;i>=0;i--)
         {
             int mini=INT_MAX;
