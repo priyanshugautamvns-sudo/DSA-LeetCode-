@@ -3,11 +3,6 @@ public:
     vector<int> twoSum(vector<int>& nums, int target) {
         unordered_map<int,int>mp;
         unordered_set<int>st;
-        for(int i=0;i<nums.size();i++)
-        {
-            mp[nums[i]]=i;
-            st.insert(nums[i]);
-        }      
         vector<int>ans;  
         for(int i=0;i<nums.size();i++)
         {
@@ -16,6 +11,8 @@ public:
             {
                 if(mp[fin]!=i) return {i,mp[fin]};
             }
+            st.insert(nums[i]);
+            mp[nums[i]]=i;
         }
         return {};
     }
